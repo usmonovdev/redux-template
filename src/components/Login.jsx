@@ -11,7 +11,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch()
   const { isLoading } = useSelector(state => state.auth)
-  console.log(isLoading);
 
   const theme = createTheme({
     palette: {

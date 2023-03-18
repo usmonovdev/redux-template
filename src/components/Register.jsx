@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 import { Input } from "./index";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUserFailure, registerUserStart, registerUserSuccess } from "../slice/auth";
-import AuthService from "../service/auth";
+import AuthServie from "../service/auth";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const dispatch = useDispatch()
-  const { isLoading } = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.auth);
 
   const theme = createTheme({
     palette: {
@@ -24,26 +24,25 @@ function Register() {
   });
 
   const buttonStyle = () => ({
-    boxShadow: 0, 
+    boxShadow: 0,
     marginTop: "8px",
     "&:hover": {
-      boxShadow: 'none',
-    }
-  })
+      boxShadow: "none",
+    },
+  });
 
   const handleLogin = async (e) => {
-    e.preventDefault()
-    dispatch(registerUserStart())
-    const user = { username: name, email, password }
+    e.preventDefault();
+    dispatch(registerUserStart());
+    const user = { email, username: name, password }
     try {
-      const response = await AuthService.userRegister(user)
-      console.log(user);
-      console.log(response); 
-      dispatch(registerUserSuccess())
-    } catch (error) {
-      dispatch(registerUserFailure())
+      const response = await AuthServie.userRegister(user)
+      console.log(response);
+      dispatch(registerUserSuccess());
+    } catch {
+      dispatch(registerUserFailure());
     }
-  }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -53,7 +52,12 @@ function Register() {
             <h3>Register</h3>
             <div className="inputs">
               <Input label="Name" type="text" text={name} setText={setName} />
-              <Input label="Email" type="email" text={email} setText={setEmail} />
+              <Input
+                label="Email"
+                type="email"
+                text={email}
+                setText={setEmail}
+              />
               <Input
                 label="Password"
                 text={password}
@@ -71,7 +75,9 @@ function Register() {
             >
               Sign Up
             </LoadingButton>
-            <p className="link">Already registered? <Link to="/login">Login</Link></p>
+            <p className="link">
+              Already registered? <Link to="/login">Login</Link>
+            </p>
           </form>
         </div>
       </Container>
