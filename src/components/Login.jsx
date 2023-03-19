@@ -1,16 +1,21 @@
 import { Container, createTheme, ThemeProvider } from "@mui/material";
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { loginUserStart } from "../slice/auth";
+import {
+  loginUserFailure,
+  loginUserStart,
+  loginUserSuccess,
+} from "../slice/auth";
 import { Input } from "./index";
+import AuthServie from "../service/auth";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch()
-  const { isLoading } = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.auth);
 
   const theme = createTheme({
     palette: {
@@ -21,17 +26,25 @@ function Login() {
   });
 
   const buttonStyle = () => ({
-    boxShadow: 0, 
+    boxShadow: 0,
     marginTop: "8px",
     "&:hover": {
-      boxShadow: 'none',
-    }
-  })
+      boxShadow: "none",
+    },
+  });
 
-  const handleLogin = (e) => {
-    e.preventDefault()
-    dispatch(loginUserStart())
-  }
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    dispatch(loginUserStart());
+    const user = { email, password }
+    try {
+      const response = await AuthServie.userLogin(user)
+      console.log(response)
+      dispatch(loginUserSuccess());
+    } catch {
+      dispatch(loginUserFailure());
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -40,7 +53,12 @@ function Login() {
           <form className="inner-box">
             <h3>Login</h3>
             <div className="inputs">
-              <Input label="Email" type="email" text={email} setText={setEmail} />
+              <Input
+                label="Email"
+                type="email"
+                text={email}
+                setText={setEmail}
+              />
               <Input
                 label="Password"
                 text={password}
@@ -58,7 +76,9 @@ function Login() {
             >
               Login
             </LoadingButton>
-            <p className="link">You need Account? <Link to="/register">Register</Link></p>
+            <p className="link">
+              You need Account? <Link to="/register">Register</Link>
+            </p>
           </form>
         </div>
       </Container>
