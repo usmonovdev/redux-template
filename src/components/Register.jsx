@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { LoadingButton } from "@mui/lab";
-import { Container, createTheme, ThemeProvider } from "@mui/material";
+import { Container, createTheme, setRef, ThemeProvider } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Input } from "./index";
+import { Input, ValidError } from "./index";
 import { useDispatch, useSelector } from "react-redux";
 import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth";
 import AuthServie from "../service/auth";
@@ -37,10 +37,8 @@ function Register() {
     const user = { email, username: name, password };
     try {
       const response = await AuthServie.userRegister(user);
-      console.log(response);
-      dispatch(signUserSuccess());
+      dispatch(signUserSuccess(response.data.user));
     } catch (error) {
-      console.log(error.response.data.errors);
       dispatch(signUserFailure(error.response.data.errors));
     }
   };
@@ -52,6 +50,7 @@ function Register() {
           <form className="inner-box">
             <h3>Register</h3>
             <div className="inputs">
+              <ValidError />
               <Input label="Name" type="text" text={name} setText={setName} />
               <Input
                 label="Email"

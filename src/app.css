@@ -9,3 +9,7 @@
     --second-color: #e89e27;
     --black: #000;
 }
+
+::-webkit-scrollbar{
+    display: none;
+}

@@ -1,9 +1,10 @@
 import TextField from "@mui/material/TextField";
 
-function Input({ label, text, setText, type = "text" }) {
+function Input({ label, text, setText, type = "text", error }) {
   return (
     <>
       <TextField
+        error={error}
         fullWidth
         label={label}
         variant="filled"

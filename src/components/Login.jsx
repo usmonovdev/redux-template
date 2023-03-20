@@ -4,7 +4,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth";
-import { Input } from "./index";
+import { Input, ValidError } from "./index";
 import AuthServie from "../service/auth";
 
 function Login() {
@@ -36,7 +36,7 @@ function Login() {
     try {
       const response = await AuthServie.userLogin(user);
       console.log(response);
-      dispatch(signUserSuccess());
+      dispatch(signUserSuccess(response.data.user));
     } catch (error) {
       console.log(error.response.data.errors);
       dispatch(signUserFailure(error.response.data.errors));
@@ -50,6 +50,7 @@ function Login() {
           <form className="inner-box">
             <h3>Login</h3>
             <div className="inputs">
+              <ValidError/>
               <Input
                 label="Email"
                 type="email"

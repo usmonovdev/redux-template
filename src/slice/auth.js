@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { saveToken } from "../helpers/storage";
 
 export const authSlice = createSlice({
     name: "auth",
@@ -16,10 +17,11 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.loggedIn = true
             state.user = action.payload
+            saveToken("TOKEN", action.payload.token)
         },
         signUserFailure: (state, action) => {
-            state.error = action.payload
             state.isLoading = false
+            state.error = action.payload
         }
     }
 })
