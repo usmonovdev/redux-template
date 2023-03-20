@@ -4,7 +4,7 @@ import { Container, createTheme, ThemeProvider } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Input } from "./index";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUserFailure, registerUserStart, registerUserSuccess } from "../slice/auth";
+import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth";
 import AuthServie from "../service/auth";
 
 function Register() {
@@ -33,14 +33,15 @@ function Register() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    dispatch(registerUserStart());
-    const user = { email, username: name, password }
+    dispatch(signUserStart());
+    const user = { email, username: name, password };
     try {
-      const response = await AuthServie.userRegister(user)
+      const response = await AuthServie.userRegister(user);
       console.log(response);
-      dispatch(registerUserSuccess());
-    } catch {
-      dispatch(registerUserFailure());
+      dispatch(signUserSuccess());
+    } catch (error) {
+      console.log(error.response.data.errors);
+      dispatch(signUserFailure(error.response.data.errors));
     }
   };
 

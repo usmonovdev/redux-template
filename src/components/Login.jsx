@@ -1,13 +1,9 @@
+import { useState } from "react";
 import { Container, createTheme, ThemeProvider } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  loginUserFailure,
-  loginUserStart,
-  loginUserSuccess,
-} from "../slice/auth";
+import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth";
 import { Input } from "./index";
 import AuthServie from "../service/auth";
 
@@ -35,14 +31,15 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    dispatch(loginUserStart());
-    const user = { email, password }
+    dispatch(signUserStart());
+    const user = { email, password };
     try {
-      const response = await AuthServie.userLogin(user)
-      console.log(response)
-      dispatch(loginUserSuccess());
-    } catch {
-      dispatch(loginUserFailure());
+      const response = await AuthServie.userLogin(user);
+      console.log(response);
+      dispatch(signUserSuccess());
+    } catch (error) {
+      console.log(error.response.data.errors);
+      dispatch(signUserFailure(error.response.data.errors));
     }
   };
 
