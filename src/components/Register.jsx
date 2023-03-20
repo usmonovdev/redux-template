@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { Container, createTheme, setRef, ThemeProvider } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input, ValidError } from "./index";
 import { useDispatch, useSelector } from "react-redux";
 import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth";
@@ -13,7 +13,8 @@ function Register() {
   const [name, setName] = useState("");
 
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading, loggedIn } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
 
   const theme = createTheme({
     palette: {
@@ -38,10 +39,17 @@ function Register() {
     try {
       const response = await AuthServie.userRegister(user);
       dispatch(signUserSuccess(response.data.user));
+      navigate("/")
     } catch (error) {
       dispatch(signUserFailure(error.response.data.errors));
     }
   };
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/")
+    }
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
