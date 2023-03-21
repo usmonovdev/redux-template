@@ -44,7 +44,7 @@ function Navbar() {
                 <li>{user.username}</li>
                 <li>
                   <Button onClick={logOut} variant="outlined" sx={style}>
-                    LogOut
+                    Log Out
                   </Button>
                 </li>
               </ul>
