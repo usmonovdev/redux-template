@@ -49,7 +49,7 @@ function Register() {
     if (loggedIn) {
       navigate("/")
     }
-  }, [])
+  }, [loggedIn])
 
   return (
     <ThemeProvider theme={theme}>

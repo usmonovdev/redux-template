@@ -1,11 +1,11 @@
-import { Route, Routes } from 'react-router-dom'
-import { Main, Login, Register, Navbar } from './components'
-import "./app.css"
-import "./index.scss"
 import AuthServie from './service/auth'
 import { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { Main, Login, Register, Navbar } from './components'
 import { useDispatch } from 'react-redux'
 import { signUserSuccess } from './slice/auth'
+import "./app.css"
+import "./index.scss"
 
 function App() {
   const dispatch = useDispatch()
@@ -17,9 +17,11 @@ function App() {
       console.log("Error!");
     }
   }
+
   useEffect(() => {
     getUser()
   }, [])
+
   return (
     <>
       <Navbar />

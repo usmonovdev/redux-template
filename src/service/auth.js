@@ -9,8 +9,8 @@ const AuthServie = {
         const response = axios.post("/users/login", { user })
         return response
     },
-    async getUser(user) {
-        const response = axios.post("/user")
+    async getUser() {
+        const response = axios.get("/user")
         return response
     }
 }

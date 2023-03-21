@@ -1,11 +1,15 @@
-import { Button } from "@mui/material";
 import Container from "@mui/material/Container";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { logo } from "../constants/constants";
+import { removeToken } from "../helpers/storage";
+import { logoutUser } from "../slice/auth";
 
 function Navbar() {
   const { loggedIn, user } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const style = () => ({
     borderColor: "#000",
@@ -15,6 +19,12 @@ function Navbar() {
       color: "#000"
     },
   });
+
+  const logOut = () => {
+    dispatch(logoutUser())
+    removeToken("TOKEN")
+    navigate("/login")
+  }
 
   return (
     <>
@@ -33,7 +43,7 @@ function Navbar() {
               <ul>
                 <li>{user.username}</li>
                 <li>
-                  <Button variant="outlined" sx={style}>
+                  <Button onClick={logOut} variant="outlined" sx={style}>
                     LogOut
                   </Button>
                 </li>

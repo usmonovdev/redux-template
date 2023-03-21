@@ -49,7 +49,7 @@ function Login() {
     if (loggedIn) {
       navigate("/")
     }
-  }, [])
+  }, [loggedIn])
 
   return (
     <ThemeProvider theme={theme}>
