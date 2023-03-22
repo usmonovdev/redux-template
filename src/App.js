@@ -1,9 +1,11 @@
 import AuthServie from './service/auth'
+import ArticleService from './service/articles'
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Main, Login, Register, Navbar } from './components'
 import { useDispatch } from 'react-redux'
 import { signUserSuccess } from './slice/auth'
+import { articleFailure, articleStart, articleSuccess } from './slice/article'
 import "./app.css"
 import "./index.scss"
 
@@ -18,8 +20,20 @@ function App() {
     }
   }
 
+  const getArticle = async () => {
+    dispatch(articleStart())
+    try {
+      const response = await ArticleService.getArticles()
+      dispatch(articleSuccess(response.data.articles))
+    } catch (error) {
+      dispatch(articleFailure(error))
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getUser()
+    getArticle()
   }, [])
 
   return (
