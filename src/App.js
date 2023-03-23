@@ -2,7 +2,7 @@ import AuthServie from './service/auth'
 import ArticleService from './service/articles'
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Main, Login, Register, Navbar } from './components'
+import { Main, Login, Register, Navbar, Article } from './components'
 import { useDispatch } from 'react-redux'
 import { signUserSuccess } from './slice/auth'
 import { articleFailure, articleStart, articleSuccess } from './slice/article'
@@ -41,6 +41,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Main />} />
+        <Route path="/article/:slug" element={<Article />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>

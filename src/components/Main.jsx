@@ -7,10 +7,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Loader } from "./index";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
+  const navigate = useNavigate();
   const state = useSelector((state) => state.article);
-  console.log(state);
 
   const theme = createTheme({
     palette: {
@@ -58,7 +59,12 @@ function Main() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button variant="contained" disableElevation size="small">
+                      <Button
+                        onClick={() => navigate(`/article/${data.slug}`)}
+                        variant="contained"
+                        disableElevation
+                        size="small"
+                      >
                         View
                       </Button>
                       <Button variant="outlined" disableElevation size="small">
