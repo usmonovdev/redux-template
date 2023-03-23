@@ -1,5 +1,4 @@
 import { Container } from "@mui/material";
-import React from "react";
 import { useSelector } from "react-redux";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -13,26 +12,33 @@ function Main() {
   console.log(state.article);
   return (
     <Container fixed>
-      {state?.article.map((data) => {
-        return (
-          <Card key={data.id} sx={{ maxWidth: 345 }}>
-            <CardMedia
-              sx={{ height: 140 }}
-              image={data.author.image}
-              title={data.author.username}
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                {data.description}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-        );
-      })}
+      <div
+        className="grid"
+      >
+        {state?.article.map((data) => {
+          return (
+            <Card key={data.id}>
+              <CardMedia
+                sx={{ height: 140 }}
+                image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                title={data.author.username}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {data.author.username}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {data.description}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+          );
+        })}
+      </div>
     </Container>
   );
 }
