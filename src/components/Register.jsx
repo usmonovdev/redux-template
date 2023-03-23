@@ -24,14 +24,6 @@ function Register() {
     },
   });
 
-  const buttonStyle = () => ({
-    boxShadow: 0,
-    marginTop: "8px",
-    "&:hover": {
-      boxShadow: "none",
-    },
-  });
-
   const handleLogin = async (e) => {
     e.preventDefault();
     dispatch(signUserStart());
@@ -77,7 +69,7 @@ function Register() {
               loading={isLoading}
               type="submit"
               variant="contained"
-              sx={buttonStyle}
+              disableElevation
               disabled={isLoading}
               onClick={handleLogin}
             >

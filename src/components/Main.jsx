@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, createTheme, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -6,40 +6,81 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Loader } from "./index";
 
 function Main() {
   const state = useSelector((state) => state.article);
-  console.log(state.article);
+  console.log(state);
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#e89e27",
+      },
+    },
+  });
+
   return (
-    <Container fixed>
-      <div
-        className="grid"
-      >
-        {state?.article.map((data) => {
-          return (
-            <Card key={data.id}>
-              <CardMedia
-                sx={{ height: 140 }}
-                image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-                title={data.author.username}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {data.author.username}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {data.description}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-              </CardActions>
-            </Card>
-          );
-        })}
-      </div>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container fixed>
+        <div className="grid">
+          {state.isLoading ? (
+            <>
+              <Loader />
+              <Loader />
+              <Loader />
+              <Loader />
+            </>
+          ) : (
+            <>
+              {state?.article.map((data) => {
+                return (
+                  <Card key={data.id} sx={{ boxShadow: 10 }}>
+                    <CardMedia
+                      sx={{ height: 140 }}
+                      image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                      title={data.author.username}
+                    />
+                    <CardContent>
+                      <Typography
+                        gutterBottom
+                        sx={{
+                          fontSize: "20px",
+                          textTransform: "uppercase",
+                          fontWeight: "bold",
+                        }}
+                        component="div"
+                      >
+                        {data.author.username}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {data.description}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button variant="contained" disableElevation size="small">
+                        View
+                      </Button>
+                      <Button variant="outlined" disableElevation size="small">
+                        Edit
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        disableElevation
+                        color="error"
+                        size="small"
+                      >
+                        Delete
+                      </Button>
+                    </CardActions>
+                  </Card>
+                );
+              })}
+            </>
+          )}
+        </div>
+      </Container>
+    </ThemeProvider>
   );
 }
 
