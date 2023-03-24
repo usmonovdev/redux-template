@@ -21,20 +21,8 @@ function App() {
     }
   }
 
-  const getArticle = async () => {
-    dispatch(articleStart())
-    try {
-      const response = await ArticleService.getArticles()
-      dispatch(articleSuccess(response.data.articles))
-    } catch (error) {
-      dispatch(articleFailure(error))
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
     getUser()
-    getArticle()
   }, [])
 
   const theme = createTheme({

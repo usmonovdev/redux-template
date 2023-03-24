@@ -2,11 +2,15 @@ import axios from "./api"
 
 const ArticleService = {
     async getArticles() {
-        const response = axios.get("/articles")
+        const response = await axios.get("/articles")
         return response
     },
     async getArticleDetail(slug) {
-        const response = axios.get(`/articles/${slug}`)
+        const response = await axios.get(`/articles/${slug}`)
+        return response
+    },
+    async postArticle(article) {
+        const response = await axios.post('/articles', {article})
         return response
     }
 }

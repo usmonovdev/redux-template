@@ -1,10 +1,20 @@
 import { LoadingButton } from "@mui/lab";
+import { useSelector } from "react-redux";
 import { Input, TextArea } from "./index";
 
 function ArticleForm(props) {
-  const { title, setTitle, description, setDescription, body, setBody } = props;
+  const { isLoading } = useSelector((state) => state.article);
+  const {
+    title,
+    setTitle,
+    description,
+    setDescription,
+    body,
+    setBody,
+    formSubmit,
+  } = props;
   return (
-    <form>
+    <form onSubmit={formSubmit}>
       <Input label="Title" type="text" text={title} setText={setTitle} />
       <TextArea
         label="Description"
@@ -15,9 +25,11 @@ function ArticleForm(props) {
       <TextArea label="Body" text={body} setText={setBody} rows={9} />
       <LoadingButton
         fullWidth
+        disableElevation
+        loading={isLoading}
         type="submit"
         variant="contained"
-        disableElevation
+        disabled={isLoading}
       >
         Create
       </LoadingButton>

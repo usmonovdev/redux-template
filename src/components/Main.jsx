@@ -5,27 +5,46 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "./index";
 import { useNavigate } from "react-router-dom";
+import { articleFailure, articleStart, articleSuccess } from "../slice/article";
+import { useEffect } from "react";
+import ArticleService from "../service/articles";
 
 function Main() {
   const navigate = useNavigate();
-  const state = useSelector((state) => state.article);
+  const {article, isLoading} = useSelector(state => state.article);
+  const dispatch = useDispatch()
+
+  const getArticle = async () => {
+    dispatch(articleStart())
+    try {
+      const response = await ArticleService.getArticles()
+      dispatch(articleSuccess(response.data.articles))
+    } catch (error) {
+      dispatch(articleFailure(error))
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getArticle()
+  }, [])
 
   return (
       <Container fixed>
         <div className="grid">
-          {state.isLoading ? (
+          {isLoading ? (
             <>
               <Loader />
               <Loader />
               <Loader />
               <Loader />
             </>
-          ) : (
+          ) :
             <>
-              {state?.article.map((data) => {
+              {article?.map((data) => {
                 return (
                   <Card key={data.id} sx={{ boxShadow: 10 }}>
                     <CardMedia
@@ -74,7 +93,7 @@ function Main() {
                 );
               })}
             </>
-          )}
+          }
         </div>
       </Container>
   );
