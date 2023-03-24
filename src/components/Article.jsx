@@ -7,19 +7,18 @@ import {
   artilceDetailSuccess,
 } from "../slice/article";
 import ArticleService from "../service/articles";
-import Box from "@mui/material/Box";
 import { Container } from "@mui/system";
-import { Typography } from "@mui/material";
 import moment from "moment/moment";
+import { ArticleLoader } from "./index";
 
 function Article() {
   const { slug } = useParams();
   const dispatch = useDispatch((state) => state.article);
-  const { articleDetail } = useSelector((state) => state.article);
-  console.log(articleDetail);
+
+  const { articleDetail, isLoading } = useSelector((state) => state.article);
+  console.log(isLoading);
   const getArticle = async () => {
     const response = await ArticleService.getArticleDetail(slug);
-    console.log(response);
     dispatch(artilceDetailStart());
     try {
       dispatch(artilceDetailSuccess(response.data.article));
@@ -43,13 +42,24 @@ function Article() {
           borderRadius: "10px",
           display: "flex",
           flexDirection: "column",
-          gap: "10px"
+          gap: "10px",
         }}
       >
-        <h2>{articleDetail?.title}</h2>
-        <p>{articleDetail?.description}</p>
-        <p><span style={{ fontWeight: "600" }}>Created At:</span> {moment(articleDetail?.createdAt).format("DD MMM, YYYY")}</p>
-        <p>{articleDetail?.body}</p>
+        {isLoading ? (
+          <>
+            <ArticleLoader />
+          </>
+        ) : (
+          <>
+            <h2>{articleDetail?.title}</h2>
+            <p>{articleDetail?.description}</p>
+            <p>
+              <span style={{ fontWeight: "600" }}>Created At:</span>{" "}
+              {moment(articleDetail?.createdAt).format("DD MMM, YYYY")}
+            </p>
+            <p>{articleDetail?.body}</p>
+          </>
+        )}
       </div>
     </Container>
   );

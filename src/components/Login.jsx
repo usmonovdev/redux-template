@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, createTheme, ThemeProvider } from "@mui/material";
+import { Container } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,14 +13,6 @@ function Login() {
   const dispatch = useDispatch();
   const { isLoading, loggedIn } = useSelector((state) => state.auth);
   const navigate = useNavigate()
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#e89e27",
-      },
-    },
-  });
 
   const buttonStyle = () => ({
     boxShadow: 0,
@@ -52,7 +44,6 @@ function Login() {
   }, [loggedIn])
 
   return (
-    <ThemeProvider theme={theme}>
       <Container fixed>
         <div className="register-box">
           <form className="inner-box">
@@ -88,7 +79,6 @@ function Login() {
           </form>
         </div>
       </Container>
-    </ThemeProvider>
   );
 }
 
