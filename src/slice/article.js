@@ -39,9 +39,32 @@ export const articleSlice = createSlice({
         createArticleFailure: (state, action) => {
             state.isLoading = false
             state.error = action.payload
+        },
+        deleteArticleStart: state => {
+            state.isLoading = true
+        },
+        deleteArticleSuccess: state => {
+            state.isLoading = false
+        },
+        deleteArticleFailure: (state, action) => {
+            state.error = action.payload
+            state.isLoading = false
         }
     }
 })
 
-export const { articleStart, articleSuccess, articleFailure, artilceDetailStart, artilceDetailSuccess, artilceDetailFailure, createArticleStart, createArticleSuccess, createArticleFailure } = articleSlice.actions
+export const { 
+    articleStart,
+    articleSuccess,
+    articleFailure,
+    artilceDetailStart,
+    artilceDetailSuccess,
+    artilceDetailFailure,
+    createArticleStart,
+    createArticleSuccess,
+    createArticleFailure,
+    deleteArticleStart,
+    deleteArticleSuccess,
+    deleteArticleFailure 
+} = articleSlice.actions
 export default articleSlice.reducer

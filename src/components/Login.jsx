@@ -28,7 +28,6 @@ function Login() {
     const user = { email, password };
     try {
       const response = await AuthServie.userLogin(user);
-      console.log(response);
       dispatch(signUserSuccess(response.data.user));
       navigate("/")
     } catch (error) {

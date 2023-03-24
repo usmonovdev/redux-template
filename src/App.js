@@ -1,11 +1,9 @@
 import AuthServie from './service/auth'
-import ArticleService from './service/articles'
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Main, Login, Register, Navbar, Article, CreateArticle } from './components'
 import { useDispatch } from 'react-redux'
 import { signUserSuccess } from './slice/auth'
-import { articleFailure, articleStart, articleSuccess } from './slice/article'
 import { createTheme, ThemeProvider } from "@mui/material";
 import "./app.css"
 import "./index.scss"

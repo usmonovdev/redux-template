@@ -43,7 +43,7 @@ function Navbar() {
               <ul>
                 <li>{user.username}</li>
                 <li><Link to={"/create-article"}>create</Link></li>
-                <li>
+                <li style={{ textDecoration: "none" }}>
                   <Button onClick={logOut} variant="outlined" sx={style}>
                     Log Out
                   </Button>

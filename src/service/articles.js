@@ -12,6 +12,10 @@ const ArticleService = {
     async postArticle(article) {
         const response = await axios.post('/articles', {article})
         return response
+    },
+    async deleteArticle(article) {
+        const response = await axios.delete(`/articles/${article}`)
+        return response
     }
 }
 
