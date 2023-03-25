@@ -66,7 +66,7 @@ function Main() {
           <>
             {article?.map((data) => {
               return (
-                <Card key={data.id} sx={{ boxShadow: 10 }}>
+                <Card key={data.slug} sx={{ boxShadow: 10 }}>
                   <CardMedia
                     sx={{ height: 140 }}
                     image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
@@ -100,6 +100,7 @@ function Main() {
                     {loggedIn && user?.username == data.author?.username ? (
                       <>
                         <Button
+                          onClick={() => navigate(`/edit-article/${data.slug}`)}
                           variant="outlined"
                           disableElevation
                           size="small"

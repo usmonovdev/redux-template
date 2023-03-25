@@ -5,6 +5,7 @@ export { default as Register } from "./Register"
 export { default as Navbar } from "./Navbar"
 export { default as CreateArticle } from "./CreateArticle"
 export { default as ArticleForm } from "./ArticleForm"
+export { default as EditArticle } from "./EditArticle"
 
 export { default as Input } from "../ui/Input"
 export { default as ValidError } from "../ui/ValidError"

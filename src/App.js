@@ -1,7 +1,7 @@
 import AuthServie from './service/auth'
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Main, Login, Register, Navbar, Article, CreateArticle } from './components'
+import { Main, Login, Register, Navbar, Article, CreateArticle, EditArticle } from './components'
 import { useDispatch } from 'react-redux'
 import { signUserSuccess } from './slice/auth'
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -41,6 +41,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/create-article' element={<CreateArticle />} />
+          <Route path='/edit-article/:slug' element={<EditArticle />} />
         </Routes>
       </ThemeProvider>
     </>

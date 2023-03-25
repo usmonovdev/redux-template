@@ -11,18 +11,28 @@ function ArticleForm(props) {
     setDescription,
     body,
     setBody,
-    formSubmit,
+    formSubmit
   } = props;
   return (
     <form onSubmit={formSubmit}>
-      <Input label="Title" type="text" text={title} setText={setTitle} />
+      <Input
+        label="Title"
+        type="text"
+        text={title}
+        setText={setTitle}
+      />
       <TextArea
         label="Description"
         text={description}
         setText={setDescription}
         rows={5}
       />
-      <TextArea label="Body" text={body} setText={setBody} rows={9} />
+      <TextArea
+        label="Body"
+        text={body}
+        setText={setBody}
+        rows={9}
+      />
       <LoadingButton
         fullWidth
         disableElevation

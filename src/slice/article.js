@@ -65,6 +65,6 @@ export const {
     createArticleFailure,
     deleteArticleStart,
     deleteArticleSuccess,
-    deleteArticleFailure 
+    deleteArticleFailure
 } = articleSlice.actions
 export default articleSlice.reducer
