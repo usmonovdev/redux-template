@@ -36,7 +36,6 @@ function Article() {
         style={{
           marginTop: "20px",
           width: "100%",
-          // boxShadow: 10,
           height: "300px",
           borderRadius: "10px",
           display: "flex",
