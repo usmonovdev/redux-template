@@ -31,7 +31,6 @@ function Login() {
       dispatch(signUserSuccess(response.data.user));
       navigate("/")
     } catch (error) {
-      console.log(error.response.data.errors);
       dispatch(signUserFailure(error.response.data.errors));
     }
   };

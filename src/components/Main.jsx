@@ -32,7 +32,6 @@ function Main() {
       dispatch(articleSuccess(response.data.articles));
     } catch (error) {
       dispatch(articleFailure(error));
-      console.log(error);
     }
   };
 
@@ -43,7 +42,6 @@ function Main() {
       dispatch(deleteArticleSuccess());
       getArticle()
     } catch (error) {
-      console.log(error);
       dispatch(deleteArticleFailure(error));
     }
   };

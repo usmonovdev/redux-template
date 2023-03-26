@@ -104,4 +104,10 @@ header {
         grid-template-columns: 1fr 1fr;
         gap: 15px;
     }
+    @media screen and (max-width: "510px") {
+        margin: 20px 0 20px 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
 }
